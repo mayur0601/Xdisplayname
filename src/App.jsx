@@ -9,10 +9,24 @@ export default function App() {
   let name = useRef("");
   let lastName = useRef("");
 
+  const containpecialCharacter = (str) => {
+    let regex = /[^a-zA-Z ]/g;
+    if (regex.test(str)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const handleFormSubmit = () => {
     setDisplayName(true);
     console.log(name.current.value);
     console.log(lastName.current.value);
+      let nameT  = name.current.value;
+    let lastNameT = lastName.current.value;
+    if(nameT.trim()=="" || lastNameT.trim()=="" || containpecialCharacter(nameT) || containpecialCharacter(lastNameT)){
+      return;
+    }
     setFullname(`Full Name: ${name.current.value} ${lastName.current.value}`);
   };
 
@@ -20,10 +34,10 @@ export default function App() {
     <main>
       <h1>Full Name Display</h1>
       <label>First Name: </label>
-      <input type="text" id="fname" name="fname" ref={name} />
+      <input type="text" id="fname" name="fname" ref={name} required/>
       <br />
       <label>Last Name: </label>
-      <input type="text" id="fname" name="fname" ref={lastName} />
+      <input type="text" id="fname" name="fname" ref={lastName} required/>
       <br />
       <button type="submit" onClick={handleFormSubmit}>
         Submit
